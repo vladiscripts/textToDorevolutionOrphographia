@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Bladislav
- * Date: 27.02.2016
- * Time: 5:42
+ * author: User:Vladis13, 2015 — ...
  */ 
 
 // Константы не работают на сервере tools.wmflabs.org - вызывают "400 - Bad request ". На localhost всё ok.
