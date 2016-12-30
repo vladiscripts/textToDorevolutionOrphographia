@@ -53,8 +53,7 @@ class ToDO
 		$t = preg_replace_callback("~(?<![[<{|/:])(\b(?:[-\ẃˊ]+)\b)(?!\}|\.[\s,;{()']*(?:[ёйцукенгшщзхъфывапролджэячсмитьбюѣѵіѳ]|</small|tsdl|tsdbr))~u",
 			function ($word) {
 				$w = $word[1];
-				$stopwords = array('см','ср','глаг','гл','акут','Акут','Шейн', 'ипр');
-				if (in_array($w, $stopwords)) return $w;
+				if (in_array(mb_strtolower($w), $this->stopwords)) return $w;
 				foreach ($this->replaces_er_postfix as $s)
 					$w = preg_replace('~'.$s[0].'~u', $s[1], $w);
 				return $w;
@@ -65,8 +64,7 @@ class ToDO
 		$t = preg_replace_callback("~(?<![[<{|/:])(\b(?:[-\ẃˊ]+)\b)~u",
 			function ($word) {
 				$w = $word[1];
-				$stopwords = array('lang','small','tsdl','tsds','tsdbr','section','begin','end', 'акут', 'Файл', 'File');
-				if (in_array($w, $stopwords)) return $w;
+				if (in_array(mb_strtolower($w), $this->stopwords)) return $w;
 				foreach ($this->replaces as $s)
 					$w = preg_replace('~'.$s[0].'~u', $s[1], $w);
 				return $w;
@@ -78,6 +76,22 @@ class ToDO
 
 		return $t;
 	}
+
+	var $stopwords = array(
+//		'lang','small','tsdl','tsds','tsdbr','section','begin','end', 'razr','razr2','File',  
+		'Файл', 'акут',
+		'см',
+		'ср','сравн',
+		// 'с','т',
+		'стр', 
+		'г', 'гг',
+		'глаг',
+		'гл',
+		'Шейн',
+		'ипр', 'пр',
+		'ж','м','ср','мн',
+	);
+
 
 	var $replaces_er_postfix = array (
 		// ъ в конце слов после согласных
@@ -100,6 +114,7 @@ class ToDO
 		["\b([Оо]тносящ)ъ\.", "$1."],
 		["\b([Юю]ж)н?ъ\.", "$1."],
 		["\b(ж|м|ср|мн)ъ\.", "$1."],
+		["\b([Сс]|[Сс]равн|[Тт])ъ\.", "$1."],
 		["\((\w?\w?[цкнгшщзхфвпрлджчсмтб])ъ\)(\w)", "($1)$2"],// убирание ъ внутри закрывающей скобки
 		["ъ(\(|\)\w)", "$1"],// исключение: перед или в скобках посреди слов ъ не ставить
 		["([Ии])з-за", "$1зъ-за"],// исключение: перед или в скобках посреди слов ъ не ставить
@@ -122,8 +137,11 @@ class ToDO
 			["стве", "ствѣ"],
 			["ели([аи])\b", "ѣли$1"],
 			["евать\b", "ѣвать"],
+			["\b([Тт])ебе\b", "$1ебѣ"],
+
 		// ые → ыя. отключено: должно применяться при сущ. в женском роде, но не в мужском. без словаря определить род невозможно.
 		//"(\w)ые\b" => "$1ыя",
+
 		// ого → аго
 			["(\w)ого(?!\{)\b", "$1аго"],
 		// исключения
@@ -359,3 +377,8 @@ class ToDO
 
 	);
 }
+
+
+// $y = 'Сравн.';
+// $u = $page2DO->convert($y);
+// echo $u;

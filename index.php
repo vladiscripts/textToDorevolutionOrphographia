@@ -21,7 +21,7 @@
 	} else echo "Результат"	
 	?></textarea><!--</pre>--></p>
 
-	<p>Для ботов есть страница "/text2do/toDOraw.php". Отвечает на запрос методом POST и текстом в "text".</p>
+	<p>Для ботов есть страница "/text2do/toDOraw.php". Отвечает на запрос методом POST с текстом в "text".</p>
 
 	<p>Результат выдаётся без лишних уточняющих запросов, чем удобен для вычитки книг в викитеке. Более точный конвертер: <a href="http://slavenica.com">slavenica.com</a>; правила ДО: <a href="http://forum.bazar.nikolaev.ua/index.php?showtopic=2197">там</a>, <a href="http://www.dorev.ru/">там</a>, <a href="http://www.dorev.ru/ru-index.html">словарик</a>.</p>
 
