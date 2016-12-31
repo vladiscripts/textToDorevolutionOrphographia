@@ -21,6 +21,7 @@ def pagetitle_target(title):
 	npages = r'(/\d+)$'
 	if re.search(npages, title):
 		title_new = re.sub(npages, r':ВТ\1', title)
+	title_new = title.replace('/ДО', '')
 	return title_new
 
 listpages = vladi_commons.file_readlines_in_set(listpages_filename)
